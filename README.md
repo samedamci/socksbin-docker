@@ -46,20 +46,26 @@ services:
 #### Create configuration file
 ```config
 server {
-	listen 80; # You can also use reverse proxy.
-	server_name localhost; # Change to your domain.
-	charset utf-8;
+  listen 80;
+  server_name localhost; # Change to your domain.
+  charset utf-8;
 
-	location / {
-		root /var/www/socksbin; # You can change it.
-		index index.txt index.html;
+  location / {
+    root /var/www/socksbin; # You can change it.
+    index index.php index.html;
 
-		location ~* {
-			# Required to display pastes as text
-			# in browser instead download it.
-			add_header Content-Type text/html;
-		}
-	}
+    location ~*_color {
+      add_header Content-Type text/html;
+      types { } default_type "text/html; charset=utf-8";
+      add_header x-robots-tag "noindex, follow";
+    }
+
+    location ~* {
+      add_header Content-Type text/plain;
+      types { } default_type "text/plain; charset=utf-8";
+      add_header x-robots-tag "noindex, follow";
+    }
+  }
 }
 ```
 #### Create docker-compose.yml file
@@ -70,13 +76,20 @@ services:
   socksbin:
     image: samedamci/socksbin
     volumes:
-			# The same location which is
-			# set up in the NGINX config.
       - /var/www/socksbin:/pastes
     environment:
-      - DOMAIN=localhost # Change to your domain.
+      - DOMAIN=localhost
     restart: always
     ports:
-      - "8801:8888" # Port to push your pastes
-			# via netcat - EXTERNAL_PORT:INTERNAL_PORT
+      - "8801:8888"
+```
+
+### Run cointainer(s)
+```
+# docker-compose up
+```
+
+If all works well you can run it in detached mode.
+```
+# docker-compose up -d
 ```
