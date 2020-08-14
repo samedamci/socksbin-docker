@@ -2,27 +2,30 @@
 
 Docker image for command line pastebin [SocksBin](https://github.com/MagnumDingusEdu/SocksBin) for sharing files and command outputs.
 
-# Usage
-
-+ Clone repo
-```
-$ git clone https://git.samedamci.me/samedamci/socksbin-docker && cd socksbin-docker
-```
+## Installation
 + Download image from [GitHub Packages](https://github.com/samedamci/socksbin-docker/packages).
 
-+ Alternatively build image itself
+or
+
++ Clone repo.
+```
+$ git clone https://git.samedamci.com/samedamci/socksbin-docker && cd socksbin-docker
+```
++ Build image itself.
 ```
 # docker build -t samedamci/socksbin ./socksbin
 ```
-## With NGINX container
+## Usage with NGINX container
 
 + Download modified NGINX image from [GitHub Packages](https://github.com/samedamci/socksbin-docker/packages).
 
-+ Alternatively build image itself
+or
+
++ Build image itself.
 ```
 # docker build -t samedamci/nginx-socksbin ./nginx-socksbin
 ```
-+ Create docker-compose.yml file
++ Create docker-compose.yml file.
 ```yaml
 version: '3'
 
@@ -45,9 +48,9 @@ services:
     ports:
       - "8801:8888"
 ```
-## With working NGINX instance
+## Usage with working NGINX instance
 
-+ Create configuration file
++ Create configuration file.
 ```config
 server {
   listen 80;
@@ -72,7 +75,7 @@ server {
   }
 }
 ```
-+ Create docker-compose.yml file
++ Create docker-compose.yml file.
 ```yaml
 version: '3'
 
@@ -88,7 +91,7 @@ services:
       - "8801:8888"
 ```
 
-+ Run cointainer(s)
++ Run cointainer(s).
 ```
 # docker-compose up
 ```
